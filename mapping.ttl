@@ -4,14 +4,32 @@
 @prefix ex: <http://example.com/ns#>.
 
 <#DevOpsActivitiesMap>
-  rr:logicalTable [ rr:tableName "activities" ];
+  rr:logicalTable <#ActivitiesTableView>;
   rr:subjectMap [
 	rr:template "http://data.example.com/activity/{activity}";
 	rr:class ex:Activity;
   ];
   rr:predicateObjectMap [
         rr:predicate ex:phase;
+        rr:objectMap [ 
+          rr:parentTriplesMap <#DevOpsPhasesMap>;
+          rr:joinCondition [
+            rr:child "phase";
+            rr:parent "phase";
+          ]
+          ];
+  ].
+
+
+<#DevOpsPhasesMap>
+  rr:logicalTable [ rr:tableName "phases" ];
+  rr:subjectMap [
+	rr:template "http://data.example.com/phase/{phase}";
+	rr:class ex:Phase
+  ];
+  rr:predicateObjectMap [
+        rr:predicate ex:phase2;
         rr:objectMap [ rr:column "phase" ];
   ].
 
-  
+<#ActivitiesTableView> rr:sqlQuery "SELECT * FROM activities limit 10;" .
