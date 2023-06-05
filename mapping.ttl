@@ -1,16 +1,16 @@
 @prefix rr: <http://www.w3.org/ns/r2rml#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix ex: <http://example.com/ns#>.
+@prefix ont: <http://example.com/ont#>.
 
 <#DevOpsActivitiesMap>
   rr:logicalTable <#ActivitiesTableView>;
   rr:subjectMap [
-	rr:template "http://data.example.com/activity/{activity}";
-	rr:class ex:Activity;
+	rr:template "http://example.com/activity/{activity}";
+	rr:class ont:Activity;
   ];
   rr:predicateObjectMap [
-        rr:predicate ex:phase;
+        rr:predicate ont:phase;
         rr:objectMap [ 
           rr:parentTriplesMap <#DevOpsPhasesMap>;
           rr:joinCondition [
@@ -24,11 +24,11 @@
 <#DevOpsPhasesMap>
   rr:logicalTable [ rr:tableName "phases" ];
   rr:subjectMap [
-	rr:template "http://data.example.com/phase/{phase}";
-	rr:class ex:Phase
+	rr:template "http://example.com/phase/{phase}";
+	rr:class ont:Phase
   ];
   rr:predicateObjectMap [
-        rr:predicate ex:phase2;
+        rr:predicate ont:phase2;
         rr:objectMap [ rr:column "phase" ];
   ].
 
