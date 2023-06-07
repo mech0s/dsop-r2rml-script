@@ -69,7 +69,27 @@
             rr:parent "tool";
           ]
         ];
-    ].
+  ];
+  rr:predicateObjectMap [
+      rr:predicate ont:toolArtifact;
+      rr:objectMap [ 
+        rr:parentTriplesMap <#DevOpsToolArtifactInputsMap>;
+        rr:joinCondition [
+          rr:child "tool";
+          rr:parent "tool";
+        ]
+      ]
+  ];
+  rr:predicateObjectMap [
+      rr:predicate ont:toolArtifact;
+      rr:objectMap [ 
+        rr:parentTriplesMap <#DevOpsToolArtifactOutputsMap>;
+        rr:joinCondition [
+          rr:child "tool";
+          rr:parent "tool";
+        ]
+      ]
+  ].
 
 <#DevOpsToolPhasesMap>
   rr:logicalTable <#ToolPhasesTableView>;
@@ -89,6 +109,40 @@
                   rr:datatype xsd:boolean ];
   ].
 
+<#DevOpsToolArtifactInputsMap>
+  rr:logicalTable <#ToolArtifactInputsTableView>;
+  rr:subjectMap [
+	rr:template "http://example.com/{tool}/input/{artifact}";
+	rr:class ont:LabelledCleansable;
+  ];
+  rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ rr:template "{artifact}: as input to tool :{tool}"; 
+                       rr:termType rr:Literal ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate ont:cleansed;
+    rr:objectMap[ rr:column "data_cleansed";
+                  rr:datatype xsd:boolean ];
+  ].
+
+
+<#DevOpsToolArtifactOutputsMap>
+  rr:logicalTable <#ToolArtifactOutputsTableView>;
+  rr:subjectMap [
+	rr:template "http://example.com/{tool}/output/{artifact}";
+	rr:class ont:LabelledCleansable;
+  ];
+  rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ rr:template "{artifact}: as output from tool :{tool}"; 
+                       rr:termType rr:Literal ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate ont:cleansed;
+    rr:objectMap[ rr:column "data_cleansed";
+                  rr:datatype xsd:boolean ];
+  ].
 
 
 <#DevOpsPhasesMap>
@@ -128,18 +182,27 @@
     rr:predicate ont:cleansed;
     rr:objectMap[ rr:column "data_cleansed";
                   rr:datatype xsd:boolean ];
+  ];
+  rr:predicateObjectMap [
+      rr:predicate ont:artifactTool;
+      rr:objectMap [ 
+        rr:parentTriplesMap <#DevOpsToolArtifactInputsMap>;
+        rr:joinCondition [
+          rr:child "artifact";
+          rr:parent "artifact";
+        ]
+      ]
+  ];
+  rr:predicateObjectMap [
+      rr:predicate ont:artifactTool;
+      rr:objectMap [ 
+        rr:parentTriplesMap <#DevOpsToolArtifactOutputsMap>;
+        rr:joinCondition [
+          rr:child "artifact";
+          rr:parent "artifact";
+        ]
+      ]
   ].
-  #];
-  # rr:predicateObjectMap [
-  #     rr:predicate ont:toolArtifact;
-  #     rr:objectMap [ 
-  #       rr:parentTriplesMap <#DevOpsToolArtifactsMap>;
-  #       rr:joinCondition [
-  #         rr:child "artifact";
-  #         rr:parent "artifact";
-  #       ]
-  #     ];
-  #].
 
 <#DocProperties>
     rr:logicalTable [ rr:sqlQuery "select * from source_info" ];
@@ -169,6 +232,7 @@
 <#ToolsTableView> rr:sqlQuery "SELECT * FROM tools". # limit 2;" .
 <#ToolPhasesTableView> rr:sqlQuery "SELECT * FROM tool_phases". # limit 2;" .
 <#ArtifactsTableView> rr:sqlQuery "SELECT * FROM artifacts". # limit 2;" .
-<#ToolArtifactsTableView> rr:sqlQuery "SELECT * FROM tool_artifacts". # limit 2;" .
+<#ToolArtifactInputsTableView> rr:sqlQuery "SELECT * FROM tool_artifacts where input = 1". # limit 2;" .
+<#ToolArtifactOutputsTableView> rr:sqlQuery "SELECT * FROM tool_artifacts where output = 1". # limit 2;" .
 
 
