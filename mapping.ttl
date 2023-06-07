@@ -2,13 +2,13 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix ont: <http://example.com/ont#>.
-@base <http://example.com/>.
+@prefix ns: <http://example.com/>.
 
 <#DevOpsActivitiesMap>
   rr:logicalTable <#ActivitiesTableView>;
 #  rr:logicalTable [ rr:tableName "Activities" ] ;
   rr:subjectMap [
-	rr:template "http://example.com/activity/{activity}";
+	rr:template "ns:activity/{activity}";
 	rr:class ont:Activity;
   ];
   rr:predicateObjectMap [
@@ -69,7 +69,7 @@
   rr:logicalTable <#ToolsTableView>;
 #  rr:logicalTable [ rr:tableName "Tools" ] ;
   rr:subjectMap [
-	rr:template "http://example.com/tool/{tool}";
+	rr:template "ns:tool/{tool}";
 	rr:class ont:Tool;
   ];
   rr:predicateObjectMap [
@@ -134,7 +134,7 @@
   rr:logicalTable <#ToolPhasesTableView>;
 #  rr:logicalTable [ rr:tableName "tool_phases" ] ;
   rr:subjectMap [
-	rr:template "http://example.com/{phase}/{tool}";
+	rr:template "ns:{phase}/{tool}";
 	rr:class ont:LabelledCleansable;
   ];
   rr:predicateObjectMap[
@@ -156,7 +156,7 @@
   rr:logicalTable <#ActivityToolsTableView>;
 #  rr:logicalTable [ rr:tableName "activity_tools" ] ;
   rr:subjectMap [
-	rr:template "http://example.com/{activity}/{tool}";
+	rr:template "ns:{activity}/{tool}";
 	rr:class ont:LabelledCleansable;
   ];
   rr:predicateObjectMap[
@@ -177,7 +177,7 @@
 <#DevOpsActivityArtifactInputsMap>
   rr:logicalTable <#ActivityArtifactInputsTableView>;
   rr:subjectMap [
-	rr:template "http://example.com/{activity}/input/{artifact}";
+	rr:template "ns:{activity}/input/{artifact}";
 	rr:class ont:LabelledCleansable;
   ];
   rr:predicateObjectMap[
@@ -199,7 +199,7 @@
 <#DevOpsActivityArtifactOutputsMap>
   rr:logicalTable <#ActivityArtifactOutputsTableView>;
   rr:subjectMap [
-	rr:template "http://example.com/{activity}/output/{artifact}";
+	rr:template "ns:{activity}/output/{artifact}";
 	rr:class ont:LabelledCleansable;
   ];
     rr:predicateObjectMap[
@@ -220,7 +220,7 @@
 <#DevOpsToolArtifactInputsMap>
   rr:logicalTable <#ToolArtifactInputsTableView>;
   rr:subjectMap [
-	rr:template "http://example.com/{tool}/input/{artifact}";
+	rr:template "ns:{tool}/input/{artifact}";
 	rr:class ont:LabelledCleansable;
   ];
     rr:predicateObjectMap[
@@ -237,11 +237,11 @@
     rr:objectMap[ rr:column "data_cleansed";
                   rr:datatype xsd:boolean ];
   ].
-  
+
 <#DevOpsToolArtifactOutputsMap>
   rr:logicalTable <#ToolArtifactOutputsTableView>;
   rr:subjectMap [
-	rr:template "http://example.com/{tool}/output/{artifact}";
+	rr:template "ns:{tool}/output/{artifact}";
 	rr:class ont:LabelledCleansable;
   ];
   rr:predicateObjectMap[
@@ -264,7 +264,7 @@
   rr:logicalTable <#PhasesTableView>;
   #rr:logicalTable [ rr:tableName "phases" ];
   rr:subjectMap [
-	rr:template "http://example.com/phase/{phase}";
+	rr:template "ns:phase/{phase}";
 	rr:class ont:Phase
   ];
   rr:predicateObjectMap [
@@ -286,7 +286,7 @@
   rr:logicalTable <#ArtifactsTableView>;
   #rr:logicalTable [ rr:tableName "phases" ];
   rr:subjectMap [
-	rr:template "http://example.com/artifact/{artifact}";
+	rr:template "ns:artifact/{artifact}";
 	rr:class ont:LabelledCleansable
   ];
   rr:predicateObjectMap [
@@ -342,22 +342,22 @@
 <#DocProperties>
     rr:logicalTable [ rr:sqlQuery "select * from source_info" ];
     rr:subjectMap 
-    [ rr:template "http://dummy/versions";
+    [ rr:template "ns:versions";
       rr:class    ont:Version   ];
     rr:predicateObjectMap [
-        rr:predicate <http://dummy/info#r2rml_script_version>;
+        rr:predicate <ns:info#r2rml_script_version>;
         rr:object "20230607-1"; 
     ];    
     rr:predicateObjectMap [
-        rr:predicate <http://dummy/info#xlsx_version>;
+        rr:predicate <ns:info#xlsx_version>;
         rr:objectMap [ rr:column "xlsx_version"; ];
     ];
     rr:predicateObjectMap [
-        rr:predicate <http://dummy/info#excel2db_version>;
+        rr:predicate <ns:info#excel2db_version>;
         rr:objectMap [ rr:column "excel2db_version"; ];
     ];
     rr:predicateObjectMap [
-        rr:predicate <http://dummy/info#normalisation_version>;
+        rr:predicate <ns:info#normalisation_version>;
         rr:objectMap [ rr:column "normalisation_version"; ];
     ].
 
