@@ -137,6 +137,10 @@
 	rr:template "http://example.com/{phase}/{tool}";
 	rr:class ont:LabelledCleansable;
   ];
+  rr:predicateObjectMap[
+    rr:predicate rdfs:description;
+    rr:object "Phase employing a Tool"
+  ];
   rr:predicateObjectMap [
         rr:predicate rdfs:label;
         rr:objectMap [ rr:template "{tool}: as used during :{phase}"; 
@@ -148,30 +152,16 @@
                   rr:datatype xsd:boolean ];
   ].
 
-<#DevOpsToolArtifactInputsMap>
-  rr:logicalTable <#ToolArtifactInputsTableView>;
-  rr:subjectMap [
-	rr:template "http://example.com/{tool}/input/{artifact}";
-	rr:class ont:LabelledCleansable;
-  ];
-  rr:predicateObjectMap [
-        rr:predicate rdfs:label;
-        rr:objectMap [ rr:template "{artifact}: as input to tool :{tool}"; 
-                       rr:termType rr:Literal ];
-  ];
-  rr:predicateObjectMap [
-    rr:predicate ont:cleansed;
-    rr:objectMap[ rr:column "data_cleansed";
-                  rr:datatype xsd:boolean ];
-  ].
-
-
 <#DevOpsActivityToolsMap>
   rr:logicalTable <#ActivityToolsTableView>;
 #  rr:logicalTable [ rr:tableName "activity_tools" ] ;
   rr:subjectMap [
 	rr:template "http://example.com/{activity}/{tool}";
 	rr:class ont:LabelledCleansable;
+  ];
+  rr:predicateObjectMap[
+    rr:predicate rdfs:description;
+    rr:object "Tool employed in Activity"
   ];
   rr:predicateObjectMap [
         rr:predicate rdfs:label;
@@ -189,6 +179,10 @@
   rr:subjectMap [
 	rr:template "http://example.com/{activity}/input/{artifact}";
 	rr:class ont:LabelledCleansable;
+  ];
+  rr:predicateObjectMap[
+    rr:predicate rdfs:description;
+    rr:object "Artifact as input during Activity"
   ];
   rr:predicateObjectMap [
         rr:predicate rdfs:label;
@@ -208,6 +202,10 @@
 	rr:template "http://example.com/{activity}/output/{artifact}";
 	rr:class ont:LabelledCleansable;
   ];
+    rr:predicateObjectMap[
+    rr:predicate rdfs:description;
+    rr:object "Artifact as output during Activity"
+  ];
   rr:predicateObjectMap [
         rr:predicate rdfs:label;
         rr:objectMap [ rr:template "{artifact}: as output during :{activity}"; 
@@ -219,11 +217,36 @@
                   rr:datatype xsd:boolean ];
   ].
 
+<#DevOpsToolArtifactInputsMap>
+  rr:logicalTable <#ToolArtifactInputsTableView>;
+  rr:subjectMap [
+	rr:template "http://example.com/{tool}/input/{artifact}";
+	rr:class ont:LabelledCleansable;
+  ];
+    rr:predicateObjectMap[
+    rr:predicate rdfs:description;
+    rr:object "Artifact as input to Tool"
+  ];
+  rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ rr:template "{artifact}: as input to tool :{tool}"; 
+                       rr:termType rr:Literal ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate ont:cleansed;
+    rr:objectMap[ rr:column "data_cleansed";
+                  rr:datatype xsd:boolean ];
+  ].
+  
 <#DevOpsToolArtifactOutputsMap>
   rr:logicalTable <#ToolArtifactOutputsTableView>;
   rr:subjectMap [
 	rr:template "http://example.com/{tool}/output/{artifact}";
 	rr:class ont:LabelledCleansable;
+  ];
+  rr:predicateObjectMap[
+    rr:predicate rdfs:description;
+    rr:object "Artifact as output from Tool"
   ];
   rr:predicateObjectMap [
         rr:predicate rdfs:label;
