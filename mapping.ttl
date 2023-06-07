@@ -287,7 +287,7 @@
   #rr:logicalTable [ rr:tableName "phases" ];
   rr:subjectMap [
 	rr:template "ns:artifact/{artifact}";
-	rr:class ont:LabelledCleansable
+	rr:class ont:Artifact
   ];
   rr:predicateObjectMap [
         rr:predicate rdfs:label;
