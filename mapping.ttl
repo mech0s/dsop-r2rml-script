@@ -43,6 +43,26 @@
           rr:parent "activity";
         ]
       ]
+  ];
+      rr:predicateObjectMap [
+      rr:predicate ont:activityArtifact;
+      rr:objectMap [ 
+        rr:parentTriplesMap <#DevOpsActivityArtifactInputsMap>;
+        rr:joinCondition [
+          rr:child "activity";
+          rr:parent "activity";
+        ]
+      ]
+  ];
+      rr:predicateObjectMap [
+      rr:predicate ont:activityArtifact;
+      rr:objectMap [ 
+        rr:parentTriplesMap <#DevOpsActivityArtifactOutputsMap>;
+        rr:joinCondition [
+          rr:child "activity";
+          rr:parent "activity";
+        ]
+      ]
   ].
 
 <#DevOpsToolsMap>
