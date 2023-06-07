@@ -134,7 +134,7 @@
   rr:logicalTable <#ToolPhasesTableView>;
 #  rr:logicalTable [ rr:tableName "tool_phases" ] ;
   rr:subjectMap [
-	rr:template "ns:{phase}/{tool}";
+	rr:template "ns:phasetool/{phase}/{tool}";
 	rr:class ont:LabelledCleansable;
   ];
   rr:predicateObjectMap[
@@ -156,7 +156,7 @@
   rr:logicalTable <#ActivityToolsTableView>;
 #  rr:logicalTable [ rr:tableName "activity_tools" ] ;
   rr:subjectMap [
-	rr:template "ns:{activity}/{tool}";
+	rr:template "ns:activitytool/{activity}/{tool}";
 	rr:class ont:LabelledCleansable;
   ];
   rr:predicateObjectMap[
@@ -177,7 +177,7 @@
 <#DevOpsActivityArtifactInputsMap>
   rr:logicalTable <#ActivityArtifactInputsTableView>;
   rr:subjectMap [
-	rr:template "ns:{activity}/input/{artifact}";
+	rr:template "ns:activityinputartifact/{activity}/{artifact}";
 	rr:class ont:LabelledCleansable;
   ];
   rr:predicateObjectMap[
@@ -199,7 +199,7 @@
 <#DevOpsActivityArtifactOutputsMap>
   rr:logicalTable <#ActivityArtifactOutputsTableView>;
   rr:subjectMap [
-	rr:template "ns:{activity}/output/{artifact}";
+	rr:template "ns:activitoutputartifact/{activity}/{artifact}";
 	rr:class ont:LabelledCleansable;
   ];
     rr:predicateObjectMap[
@@ -220,7 +220,7 @@
 <#DevOpsToolArtifactInputsMap>
   rr:logicalTable <#ToolArtifactInputsTableView>;
   rr:subjectMap [
-	rr:template "ns:{tool}/input/{artifact}";
+	rr:template "ns:toolinputartifact/{tool}/{artifact}";
 	rr:class ont:LabelledCleansable;
   ];
     rr:predicateObjectMap[
@@ -241,7 +241,7 @@
 <#DevOpsToolArtifactOutputsMap>
   rr:logicalTable <#ToolArtifactOutputsTableView>;
   rr:subjectMap [
-	rr:template "ns:{tool}/output/{artifact}";
+	rr:template "ns:tooloutputartifact/{tool}/{artifact}";
 	rr:class ont:LabelledCleansable;
   ];
   rr:predicateObjectMap[
