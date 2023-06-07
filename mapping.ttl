@@ -4,6 +4,32 @@
 @prefix ont: <http://example.com/ont#>.
 @prefix ns: <http://example.com/>.
 
+
+<#DocProperties>
+    rr:logicalTable [ rr:sqlQuery "select * from source_info" ];
+    rr:subjectMap 
+    [ rr:template "Version";
+      rr:termType rr:BlankNode ];
+    rr:predicateObjectMap [
+        rr:predicate <ns:info#r2rml_script_version>;
+        rr:object "20230607-1"; 
+    ];    
+    rr:predicateObjectMap [
+        rr:predicate <ns:info#xlsx_version>;
+        rr:objectMap [ rr:column "xlsx_version"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate <ns:info#excel2db_version>;
+        rr:objectMap [ rr:column "excel2db_version"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate <ns:info#normalisation_version>;
+        rr:objectMap [ rr:column "normalisation_version"; ];
+    ].
+
+
+
+
 <#DevOpsActivitiesMap>
   rr:logicalTable <#ActivitiesTableView>;
 #  rr:logicalTable [ rr:tableName "Activities" ] ;
@@ -339,27 +365,7 @@
       ]
   ].
 
-<#DocProperties>
-    rr:logicalTable [ rr:sqlQuery "select * from source_info" ];
-    rr:subjectMap 
-    [ rr:template "ns:versions";
-      rr:class    ont:Version   ];
-    rr:predicateObjectMap [
-        rr:predicate <ns:info#r2rml_script_version>;
-        rr:object "20230607-1"; 
-    ];    
-    rr:predicateObjectMap [
-        rr:predicate <ns:info#xlsx_version>;
-        rr:objectMap [ rr:column "xlsx_version"; ];
-    ];
-    rr:predicateObjectMap [
-        rr:predicate <ns:info#excel2db_version>;
-        rr:objectMap [ rr:column "excel2db_version"; ];
-    ];
-    rr:predicateObjectMap [
-        rr:predicate <ns:info#normalisation_version>;
-        rr:objectMap [ rr:column "normalisation_version"; ];
-    ].
+
 
 
 <#ActivitiesTableView> rr:sqlQuery "SELECT * FROM activities". # limit 2;" .
