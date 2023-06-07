@@ -2,15 +2,30 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix ont: <http://example.com/ont#>.
+@base <http://example.com/>.
 
 <#DevOpsActivitiesMap>
   rr:logicalTable <#ActivitiesTableView>;
+#  rr:logicalTable [ rr:tableName "Activities" ] ;
   rr:subjectMap [
 	rr:template "http://example.com/activity/{activity}";
 	rr:class ont:Activity;
   ];
   rr:predicateObjectMap [
-        rr:predicate ont:phase;
+    rr:predicate rdfs:label;
+    rr:objectMap[ rr:column "activity"; ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate rdfs:comment;
+    rr:objectMap[ rr:column "description"; ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate ont:cleansed;
+    rr:objectMap[ rr:column "data_cleansed";
+                  rr:datatype xsd:boolean ];
+  ];
+  rr:predicateObjectMap [
+        rr:predicate ont:inPhase;
         rr:objectMap [ 
           rr:parentTriplesMap <#DevOpsPhasesMap>;
           rr:joinCondition [
@@ -21,15 +36,139 @@
   ].
 
 
+<#DevOpsToolsMap>
+  rr:logicalTable <#ToolsTableView>;
+#  rr:logicalTable [ rr:tableName "Tools" ] ;
+  rr:subjectMap [
+	rr:template "http://example.com/tool/{tool}";
+	rr:class ont:Tool;
+  ];
+  rr:predicateObjectMap [
+    rr:predicate rdfs:label;
+    rr:objectMap[ rr:column "tool"; ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate ont:features;
+    rr:objectMap[ rr:column "features"; ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate ont:benefits;
+    rr:objectMap[ rr:column "benefits"; ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate ont:cleansed;
+    rr:objectMap[ rr:column "data_cleansed";
+                  rr:datatype xsd:boolean ];
+  ];
+    rr:predicateObjectMap [
+        rr:predicate ont:inPhase;
+        rr:objectMap [ 
+          rr:parentTriplesMap <#DevOpsToolPhasesMap>;
+          rr:joinCondition [
+            rr:child "tool";
+            rr:parent "tool";
+          ]
+        ];
+    ].
+
+<#DevOpsToolPhasesMap>
+  rr:logicalTable <#ToolPhasesTableView>;
+#  rr:logicalTable [ rr:tableName "tool_phases" ] ;
+  rr:subjectMap [
+	rr:template "http://example.com/{phase}/{tool}";
+	rr:class ont:LabelledCleansable;
+  ];
+  rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ rr:template "{tool}: as used during :{phase}"; 
+                       rr:termType rr:Literal ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate ont:cleansed;
+    rr:objectMap[ rr:column "data_cleansed";
+                  rr:datatype xsd:boolean ];
+  ].
+
+
+
 <#DevOpsPhasesMap>
-  rr:logicalTable [ rr:tableName "phases" ];
+  rr:logicalTable <#PhasesTableView>;
+  #rr:logicalTable [ rr:tableName "phases" ];
   rr:subjectMap [
 	rr:template "http://example.com/phase/{phase}";
 	rr:class ont:Phase
   ];
   rr:predicateObjectMap [
-        rr:predicate ont:phase2;
-        rr:objectMap [ rr:column "phase" ];
+        rr:predicate rdfs:label;
+        rr:objectMap [ rr:column "phase"; ];
+  ];
+  rr:predicateObjectMap [
+      rr:predicate ont:phaseTool;
+      rr:objectMap [ 
+        rr:parentTriplesMap <#DevOpsToolPhasesMap>;
+        rr:joinCondition [
+          rr:child "phase";
+          rr:parent "phase";
+        ]
+      ];
   ].
 
-<#ActivitiesTableView> rr:sqlQuery "SELECT * FROM activities limit 10;" .
+<#DevOpsArtifacts>
+  rr:logicalTable <#ArtifactsTableView>;
+  #rr:logicalTable [ rr:tableName "phases" ];
+  rr:subjectMap [
+	rr:template "http://example.com/artifact/{artifact}";
+	rr:class ont:LabelledCleansable
+  ];
+  rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ rr:column "artifact"; ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate ont:cleansed;
+    rr:objectMap[ rr:column "data_cleansed";
+                  rr:datatype xsd:boolean ];
+  ].
+  #];
+  # rr:predicateObjectMap [
+  #     rr:predicate ont:toolArtifact;
+  #     rr:objectMap [ 
+  #       rr:parentTriplesMap <#DevOpsToolArtifactsMap>;
+  #       rr:joinCondition [
+  #         rr:child "artifact";
+  #         rr:parent "artifact";
+  #       ]
+  #     ];
+  #].
+
+<#DocProperties>
+    rr:logicalTable [ rr:sqlQuery "select * from source_info" ];
+    rr:subjectMap 
+    [ rr:template "http://dummy/versions";
+      rr:class    ont:Version   ];
+    rr:predicateObjectMap [
+        rr:predicate <http://dummy/info#r2rml_script_version>;
+        rr:object "20230607-1"; 
+    ];    
+    rr:predicateObjectMap [
+        rr:predicate <http://dummy/info#xlsx_version>;
+        rr:objectMap [ rr:column "xlsx_version"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate <http://dummy/info#excel2db_version>;
+        rr:objectMap [ rr:column "excel2db_version"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate <http://dummy/info#normalisation_version>;
+        rr:objectMap [ rr:column "normalisation_version"; ];
+    ].
+
+
+<#ActivitiesTableView> rr:sqlQuery "SELECT * FROM activities". # limit 2;" .
+<#PhasesTableView> rr:sqlQuery "SELECT * FROM phases". # limit 2;" .
+<#ToolsTableView> rr:sqlQuery "SELECT * FROM tools". # limit 2;" .
+<#ToolPhasesTableView> rr:sqlQuery "SELECT * FROM tool_phases". # limit 2;" .
+<#ArtifactsTableView> rr:sqlQuery "SELECT * FROM artifacts". # limit 2;" .
+<#ToolArtifactsTableView> rr:sqlQuery "SELECT * FROM tool_artifacts". # limit 2;" .
+
+
