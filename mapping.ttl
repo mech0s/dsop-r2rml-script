@@ -33,8 +33,17 @@
             rr:parent "phase";
           ]
           ];
+  ];
+    rr:predicateObjectMap [
+      rr:predicate ont:activityTool;
+      rr:objectMap [ 
+        rr:parentTriplesMap <#DevOpsActivityToolsMap>;
+        rr:joinCondition [
+          rr:child "activity";
+          rr:parent "activity";
+        ]
+      ]
   ].
-
 
 <#DevOpsToolsMap>
   rr:logicalTable <#ToolsTableView>;
@@ -89,6 +98,16 @@
           rr:parent "tool";
         ]
       ]
+  ];
+    rr:predicateObjectMap [
+      rr:predicate ont:toolActivity;
+      rr:objectMap [ 
+        rr:parentTriplesMap <#DevOpsActivityToolsMap>;
+        rr:joinCondition [
+          rr:child "tool";
+          rr:parent "tool";
+        ]
+      ]
   ].
 
 <#DevOpsToolPhasesMap>
@@ -126,6 +145,59 @@
                   rr:datatype xsd:boolean ];
   ].
 
+
+<#DevOpsActivityToolsMap>
+  rr:logicalTable <#ActivityToolsTableView>;
+#  rr:logicalTable [ rr:tableName "activity_tools" ] ;
+  rr:subjectMap [
+	rr:template "http://example.com/{activity}/{tool}";
+	rr:class ont:LabelledCleansable;
+  ];
+  rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ rr:template "{tool}: as used for :{activity}"; 
+                       rr:termType rr:Literal ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate ont:cleansed;
+    rr:objectMap[ rr:column "data_cleansed";
+                  rr:datatype xsd:boolean ];
+  ].
+
+<#DevOpsActivityArtifactInputsMap>
+  rr:logicalTable <#ActivityArtifactInputsTableView>;
+  rr:subjectMap [
+	rr:template "http://example.com/{activity}/input/{artifact}";
+	rr:class ont:LabelledCleansable;
+  ];
+  rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ rr:template "{artifact}: as input during :{activity}"; 
+                       rr:termType rr:Literal ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate ont:cleansed;
+    rr:objectMap[ rr:column "data_cleansed";
+                  rr:datatype xsd:boolean ];
+  ].
+
+
+<#DevOpsActivityArtifactOutputsMap>
+  rr:logicalTable <#ActivityArtifactOutputsTableView>;
+  rr:subjectMap [
+	rr:template "http://example.com/{activity}/output/{artifact}";
+	rr:class ont:LabelledCleansable;
+  ];
+  rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ rr:template "{artifact}: as output during :{activity}"; 
+                       rr:termType rr:Literal ];
+  ];
+  rr:predicateObjectMap [
+    rr:predicate ont:cleansed;
+    rr:objectMap[ rr:column "data_cleansed";
+                  rr:datatype xsd:boolean ];
+  ].
 
 <#DevOpsToolArtifactOutputsMap>
   rr:logicalTable <#ToolArtifactOutputsTableView>;
@@ -202,6 +274,26 @@
           rr:parent "artifact";
         ]
       ]
+  ];
+  rr:predicateObjectMap [
+      rr:predicate ont:artifactActivity;
+      rr:objectMap [ 
+        rr:parentTriplesMap <#DevOpsActivityArtifactInputsMap>;
+        rr:joinCondition [
+          rr:child "artifact";
+          rr:parent "artifact";
+        ]
+      ]
+  ];
+  rr:predicateObjectMap [
+      rr:predicate ont:artifactActivity;
+      rr:objectMap [ 
+        rr:parentTriplesMap <#DevOpsActivityArtifactOutputsMap>;
+        rr:joinCondition [
+          rr:child "artifact";
+          rr:parent "artifact";
+        ]
+      ]
   ].
 
 <#DocProperties>
@@ -228,11 +320,14 @@
 
 
 <#ActivitiesTableView> rr:sqlQuery "SELECT * FROM activities". # limit 2;" .
+<#ActivityToolsTableView> rr:sqlQuery "SELECT * FROM activity_tools". # limit 2;" .
 <#PhasesTableView> rr:sqlQuery "SELECT * FROM phases". # limit 2;" .
 <#ToolsTableView> rr:sqlQuery "SELECT * FROM tools". # limit 2;" .
 <#ToolPhasesTableView> rr:sqlQuery "SELECT * FROM tool_phases". # limit 2;" .
 <#ArtifactsTableView> rr:sqlQuery "SELECT * FROM artifacts". # limit 2;" .
 <#ToolArtifactInputsTableView> rr:sqlQuery "SELECT * FROM tool_artifacts where input = 1". # limit 2;" .
 <#ToolArtifactOutputsTableView> rr:sqlQuery "SELECT * FROM tool_artifacts where output = 1". # limit 2;" .
+<#ActivityArtifactInputsTableView> rr:sqlQuery "SELECT * FROM activity_artifacts where input = 1". # limit 2;" .
+<#ActivityArtifactOutputsTableView> rr:sqlQuery "SELECT * FROM activity_artifacts where output = 1". # limit 2;" .
 
 
