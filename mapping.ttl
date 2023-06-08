@@ -2,7 +2,6 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix ont: <http://example.com/ont#>.
-@prefix ns: <http://example.com/>.
 
 
 <#DocProperties>
@@ -11,19 +10,19 @@
     [ rr:template "Version";
       rr:termType rr:BlankNode ];
     rr:predicateObjectMap [
-        rr:predicate <ns:info#r2rml_script_version>;
+        rr:predicate <http://example.com/info#r2rml_script_version>;
         rr:object "20230607-1"; 
     ];    
     rr:predicateObjectMap [
-        rr:predicate <ns:info#xlsx_version>;
+        rr:predicate <http://example.com/info#xlsx_version>;
         rr:objectMap [ rr:column "xlsx_version"; ];
     ];
     rr:predicateObjectMap [
-        rr:predicate <ns:info#excel2db_version>;
+        rr:predicate <http://example.com/info#excel2db_version>;
         rr:objectMap [ rr:column "excel2db_version"; ];
     ];
     rr:predicateObjectMap [
-        rr:predicate <ns:info#normalisation_version>;
+        rr:predicate <http://example.com/info#normalisation_version>;
         rr:objectMap [ rr:column "normalisation_version"; ];
     ].
 
@@ -34,7 +33,7 @@
   rr:logicalTable <#ActivitiesTableView>;
 #  rr:logicalTable [ rr:tableName "Activities" ] ;
   rr:subjectMap [
-	rr:template "ns:activity/{activity}";
+	rr:template "http://example.com/activity/{activity}";
 	rr:class ont:Activity;
   ];
   rr:predicateObjectMap [
@@ -95,7 +94,7 @@
   rr:logicalTable <#ToolsTableView>;
 #  rr:logicalTable [ rr:tableName "Tools" ] ;
   rr:subjectMap [
-	rr:template "ns:tool/{tool}";
+	rr:template "http://example.com/tool/{tool}";
 	rr:class ont:Tool;
   ];
   rr:predicateObjectMap [
@@ -160,7 +159,7 @@
   rr:logicalTable <#ToolPhasesTableView>;
 #  rr:logicalTable [ rr:tableName "tool_phases" ] ;
   rr:subjectMap [
-	rr:template "ns:phasetool/{phase}/{tool}";
+	rr:template "http://example.com/phasetool/{phase}/{tool}";
 	rr:class ont:LabelledCleansable;
   ];
   rr:predicateObjectMap[
@@ -182,7 +181,7 @@
   rr:logicalTable <#ActivityToolsTableView>;
 #  rr:logicalTable [ rr:tableName "activity_tools" ] ;
   rr:subjectMap [
-	rr:template "ns:activitytool/{activity}/{tool}";
+	rr:template "http://example.com/activitytool/{activity}/{tool}";
 	rr:class ont:LabelledCleansable;
   ];
   rr:predicateObjectMap[
@@ -203,7 +202,7 @@
 <#DevOpsActivityArtifactInputsMap>
   rr:logicalTable <#ActivityArtifactInputsTableView>;
   rr:subjectMap [
-	rr:template "ns:activityinputartifact/{activity}/{artifact}";
+	rr:template "http://example.com/activityinputartifact/{activity}/{artifact}";
 	rr:class ont:LabelledCleansable;
   ];
   rr:predicateObjectMap[
@@ -225,7 +224,7 @@
 <#DevOpsActivityArtifactOutputsMap>
   rr:logicalTable <#ActivityArtifactOutputsTableView>;
   rr:subjectMap [
-	rr:template "ns:activitoutputartifact/{activity}/{artifact}";
+	rr:template "http://example.com/activitoutputartifact/{activity}/{artifact}";
 	rr:class ont:LabelledCleansable;
   ];
     rr:predicateObjectMap[
@@ -246,7 +245,7 @@
 <#DevOpsToolArtifactInputsMap>
   rr:logicalTable <#ToolArtifactInputsTableView>;
   rr:subjectMap [
-	rr:template "ns:toolinputartifact/{tool}/{artifact}";
+	rr:template "http://example.com/toolinputartifact/{tool}/{artifact}";
 	rr:class ont:LabelledCleansable;
   ];
     rr:predicateObjectMap[
@@ -267,7 +266,7 @@
 <#DevOpsToolArtifactOutputsMap>
   rr:logicalTable <#ToolArtifactOutputsTableView>;
   rr:subjectMap [
-	rr:template "ns:tooloutputartifact/{tool}/{artifact}";
+	rr:template "http://example.com/tooloutputartifact/{tool}/{artifact}";
 	rr:class ont:LabelledCleansable;
   ];
   rr:predicateObjectMap[
@@ -290,7 +289,7 @@
   rr:logicalTable <#PhasesTableView>;
   #rr:logicalTable [ rr:tableName "phases" ];
   rr:subjectMap [
-	rr:template "ns:phase/{phase}";
+	rr:template "http://example.com/phase/{phase}";
 	rr:class ont:Phase
   ];
   rr:predicateObjectMap [
@@ -312,7 +311,7 @@
   rr:logicalTable <#ArtifactsTableView>;
   #rr:logicalTable [ rr:tableName "phases" ];
   rr:subjectMap [
-	rr:template "ns:artifact/{artifact}";
+	rr:template "http://example.com/artifact/{artifact}";
 	rr:class ont:Artifact
   ];
   rr:predicateObjectMap [
